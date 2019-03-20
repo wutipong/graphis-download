@@ -30,7 +30,8 @@ $("#download").on("click", function () {
           url: download.url,
           filename: name + "\\" + download.name
         });
-      })
+      });
+      window.close();
     });
   });
 })
