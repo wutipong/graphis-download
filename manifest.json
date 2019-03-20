@@ -1,7 +1,7 @@
 {
     "name": "Graphis Model Page Downloader",
-    "version": "1.0",
-    "description": "Download images, model page, and movies",
+    "version": "2019.3.0",
+    "description": "Helper tool for downloading images, model page, and movies, from Graphis website. Membership is still required.",
     "manifest_version": 2,
     "background": {
         "scripts": [
@@ -9,16 +9,15 @@
         ],
         "persistent": false
     },
-    "content_scripts": [
-        {
-          "matches": ["http://graphis.ne.jp/monthly/model.php*"],
-          "js": ["js/jquery-3.3.1.min.js", "model.js"]
+    "content_scripts": [{
+            "matches": ["http://graphis.ne.jp/monthly/model.php*"],
+            "js": ["js/jquery-3.3.1.min.js", "model.js"]
         },
         {
             "matches": ["http://graphis.ne.jp/monthly/item.php*"],
             "js": ["js/jquery-3.3.1.min.js", "item.js"]
-          }
-      ],
+        }
+    ],
     "page_action": {
         "default_popup": "popup.html",
         "default_icon": {
@@ -38,7 +37,6 @@
         "storage",
         "declarativeContent",
         "activeTab",
-        "tabs",
         "downloads"
     ]
 }

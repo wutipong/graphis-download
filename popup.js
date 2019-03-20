@@ -28,7 +28,8 @@ $("#download").on("click", function () {
       response.urls.forEach(function (download) {
         chrome.downloads.download({
           url: download.url,
-          filename: name + "\\" + download.name
+          filename: name + "\\" + download.name,
+          conflictAction: "prompt"
         });
       });
       window.close();
