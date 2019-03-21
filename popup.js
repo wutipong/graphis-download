@@ -6,6 +6,7 @@ chrome.storage.local.get(['name'], function (data) {
 $('#name').on('change', function (event) {
   let name = $("#name").val().replace('\\', ' ');
   name = name.replace('/', ' ');
+  name = name.trim();
   $('#name').val(name);
 
   chrome.storage.local.set({
