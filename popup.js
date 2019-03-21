@@ -26,7 +26,7 @@ $("#download").on("click", function () {
     }, function (response) {
       console.log(response);
       let name = $("#name").val();
-      response.urls.forEach(function (download) {
+      response.forEach(function (download) {
         chrome.downloads.download({
           url: download.url,
           filename: name + "\\" + download.name,
