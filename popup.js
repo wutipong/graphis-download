@@ -1,44 +1,44 @@
 chrome.storage.local.get(['name'], function (data) {
-  $("#name").val(data.name);
-  console.log(data.name);
-});
+  $('#name').val(data.name)
+  console.log(data.name)
+})
 
 $('#name').on('change', function (event) {
-  let name = $("#name").val().replace('\\', ' ');
-  name = name.replace('/', ' ');
-  name = name.trim();
-  $('#name').val(name);
+  let name = $('#name').val().replace('\\', ' ')
+  name = name.replace('/', ' ')
+  name = name.trim()
+  $('#name').val(name)
 
   chrome.storage.local.set({
     name: name
   }, function () {
-    console.log(name);
+    console.log(name)
   })
-});
-
-$("#clear").on("click", function(){
-  $('#name').val("");
-  $("#name").trigger("change");
 })
 
-$("#download").on("click", function () {
+$('#clear').on('click', function () {
+  $('#name').val('')
+  $('#name').trigger('change')
+})
+
+$('#download').on('click', function () {
   chrome.tabs.query({
     active: true,
     currentWindow: true
   }, function (tabs) {
     chrome.tabs.sendMessage(tabs[0].id, {
-      greeting: "hello"
+      greeting: 'hello'
     }, function (response) {
-      console.log(response);
-      let name = $("#name").val();
+      console.log(response)
+      let name = $('#name').val()
       response.forEach(function (download) {
         chrome.downloads.download({
           url: download.url,
-          filename: name + "\\" + download.name,
-          conflictAction: "prompt"
-        });
-      });
-      window.close();
-    });
-  });
+          filename: name + '\\' + download.name,
+          conflictAction: 'prompt'
+        })
+      })
+      window.close()
+    })
+  })
 })

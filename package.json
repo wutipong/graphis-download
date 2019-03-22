@@ -1,0 +1,27 @@
+{
+  "name": "graphis-download",
+  "version": "2019.3.1",
+  "description": "Helper tool for downloading images, model page, and movies, from Graphis website. Membership is still required.",
+  "main": "background.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wutipong/graphis-download.git"
+  },
+  "author": "Wutipong Wongsakuldej",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wutipong/graphis-download/issues"
+  },
+  "homepage": "https://github.com/wutipong/graphis-download#readme",
+  "devDependencies": {
+    "eslint": "^5.15.3",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0"
+  }
+}
