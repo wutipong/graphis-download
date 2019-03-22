@@ -12,7 +12,7 @@ Graphis Download Helper is available on [Chrome Web Store](https://chrome.google
 
 Graphis updates it website regulary, and only parts of the collection is uploaded at a time. Although it provide Zip files, they are on separated pages inside the model collection. Besides, managing multiple files from multiple model can be labor intensive. 
 
-## What does the downloader do.
+## What the downloader does.
 
 First of all, the downloader only enabled insides the model page, and the item (viewer) page, of the Graphis website. Other than that it will stay disabled on the toolbar.
 
@@ -23,7 +23,7 @@ The downloader operates differently between those two pages.
 
 Last but not least, the Download subfolder can be specified in the tool. The files that are added from the tool will be keep inside the folder, which is inside the Dowload directory Chrome is setup to. This will make organizing downloaded files easier.
 
-## What doesn't the downloader.
+## What the downloader doesn't do.
 
 * The downloader won't allow you to download media which you have no right/access to it. 
 * The downloader won't crawl inside the model page and download all of the zip file of that collection. The user has to download the file one by one.
