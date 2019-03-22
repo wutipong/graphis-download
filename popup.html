@@ -13,10 +13,17 @@
 <body>
     <div class="container">
         <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" placeholder="Model Name [Collection]">
+            <label for="name">Directory Name</label>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" id="name" placeholder="Model Name [Collection]">
+                <div class="input-group-append">
+                    <button id="clear" class="btn btn-outline-secondary" type="button">Clear</button>
+                </div>
+            </div>
         </div>
-        <button id="download" type="button" class="btn btn-primary">Download</button>
+        <div class="text-right">
+            <button id="download" type="button" class="btn btn-primary">Download</button>
+        </div>
     </div>
     <script src="popup.js"></script>
 </body>

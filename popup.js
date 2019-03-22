@@ -16,6 +16,11 @@ $('#name').on('change', function (event) {
   })
 });
 
+$("#clear").on("click", function(){
+  $('#name').val("");
+  $("#name").trigger("change");
+})
+
 $("#download").on("click", function () {
   chrome.tabs.query({
     active: true,
