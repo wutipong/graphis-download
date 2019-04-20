@@ -1,8 +1,9 @@
 var historyValues = []
 var nameElement = document.getElementById('name')
 var categorySelect = document.getElementById('category')
+var directoryText = document.getElementById('directory')
 
-chrome.storage.local.get(['name', 'history', 'category'], function (data) {
+chrome.storage.local.get(['name', 'history', 'category', 'directory'], function (data) {
   if (data.name != null) {
     nameElement.value = data.name
   }
@@ -17,6 +18,9 @@ chrome.storage.local.get(['name', 'history', 'category'], function (data) {
     categorySelect.selectedIndex = data.category
   }
 
+  if (data.directory != null) {
+    directoryText.value = data.directory
+  }
   updateHistory()
 })
 
@@ -41,6 +45,17 @@ nameElement.addEventListener('change', function (event) {
   nameElement.value = name
   chrome.storage.local.set({
     name: name
+  })
+})
+
+directoryText.addEventListener('change', function (event) {
+  let directory = directoryText.value
+
+  directory = directory.trim()
+
+  directoryText.value = directory
+  chrome.storage.local.set({
+    directory: directory
   })
 })
 
@@ -112,7 +127,7 @@ downloadButton.addEventListener('click', function () {
       response.forEach(function (download) {
         chrome.downloads.download({
           url: download.url,
-          filename: category + '\\' + name + '\\' + download.name,
+          filename: (directoryText.value.length === 0 ? '' : (directoryText.value + '\\')) + category + '\\' + name + '\\' + download.name,
           conflictAction: 'prompt'
         })
       })
