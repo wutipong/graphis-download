@@ -108,10 +108,11 @@ downloadButton.addEventListener('click', function () {
     }, function (response) {
       let name = nameElement.value
       let category = categorySelect[categorySelect.selectedIndex].text
+      let historyEntry = category + '\\' + name
 
       if (historyValues.length === 0 ||
-        (historyValues.length > 0 && historyValues[0] !== name)) {
-        historyValues.unshift(category + '\\' + name)
+        (historyValues.length > 0 && historyValues[0] !== historyEntry)) {
+        historyValues.unshift(historyEntry)
 
         if (historyValues.length > 10) {
           historyValues.length = 10
