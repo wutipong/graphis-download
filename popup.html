@@ -3,30 +3,25 @@
 
 <head>
     <link rel="stylesheet" href="custom.css">
-    </style>
-    <script src='js/jquery-3.3.1.min.js'></script>
-    <script src='js/popper.min.js'></script>
-    <script src='js/bootstrap.min.js'></script>
-    <link rel="stylesheet" href='css/bootstrap.min.css'>
+    <link rel="stylesheet" href="purecss/pure-min.css">
 </head>
 
 <body>
-    <div class="container">
-        <div class="form-group">
-            <label for="name">Directory Name</label>
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" id="name" placeholder="Model Name [Collection]">
-                <div class="input-group-append">
-                    <button id="clear" class="btn btn-outline-secondary" type="button">Clear</button>
-                </div>
+    <div class="container pure-form pure-form-aligned">
+        <fieldset>
+            <div class="pure-control-group">
+                <label for="name">Directory Name</label>
+                <input type="text" id="name" placeholder="Model Name [Collection]">
+                <button id="clear" class="pure-button" type="button">Clear</button>
             </div>
-
-            <label for="history-list">History</label>
-            <select class="form-control" id="history-list"> </select>
-        </div>
-        <div class="text-right">
-            <button id="download" type="button" class="btn btn-primary">Download</button>
-        </div>
+            <div class="pure-control-group">
+                <label for="history-list">History</label>
+                <select id="history-list"> </select>
+            </div>
+            <div class="pure-controls">
+                <button id="download" type="button" class="pure-button pure-button-primary">Download</button>
+            </div>
+        </fieldset>
     </div>
     <script src="popup.js"></script>
 </body>

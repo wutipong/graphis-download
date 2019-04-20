@@ -1,43 +1,65 @@
 var historyValues = []
+var nameElement = document.getElementById('name')
 
 chrome.storage.local.get(['name', 'history'], function (data) {
-  $('#name').val(data.name)
+  if (data.name != null) {
+    nameElement.value = data.name
+  }
+
   historyValues = data.history
-  if (historyValues == null) historyValues = []
+
+  if (historyValues == null) {
+    historyValues = []
+  }
+
   updateHistory()
 })
 
 function updateHistory () {
-  let $historyList = $('#history-list')
-  $historyList.empty()
+  let historyListElement = document.getElementById('history-list')
+  historyListElement.innerHTML = ''
+
   historyValues.forEach(function (history) {
-    $historyList.append('<option>' + history + '</option>')
+    let option = document.createElement('OPTION')
+    option.innerHTML = history
+
+    historyListElement.appendChild(option)
   })
 }
 
-$('#name').on('change', function (event) {
-  let name = $('#name').val().replace('\\', ' ')
+nameElement.addEventListener('change', function (event) {
+  let name = nameElement.value.replace('\\', ' ')
+
   name = name.replace('/', ' ')
   name = name.trim()
-  $('#name').val(name)
 
+  nameElement.value = name
   chrome.storage.local.set({
     name: name
   })
 })
 
-$('#clear').on('click', function () {
-  $('#name').val('')
-  $('#name').trigger('change')
+let clearButton = document.getElementById('clear')
+clearButton.addEventListener('click', function () {
+  nameElement.value = ''
+
+  var event = document.createEvent('HTMLEvents')
+  event.initEvent('change', true, false)
+  nameElement.dispatchEvent(event)
 })
 
-$('#history-list').change(function () {
-  let $selectItem = $('#history-list option:selected')
-  $('#name').val($selectItem.text())
-  $('#name').trigger('change')
+let historyListSelect = document.getElementById('history-list')
+historyListSelect.addEventListener('change', function () {
+  let selectItem = historyListSelect.options[historyListSelect.selectedIndex]
+  nameElement.value = selectItem.text
+
+  var event = document.createEvent('HTMLEvents')
+  event.initEvent('change', true, false)
+  nameElement.dispatchEvent(event)
 })
 
-$('#download').on('click', function () {
+let downloadButton = document.getElementById('download')
+downloadButton.addEventListener('click', function () {
   chrome.tabs.query({
     active: true,
     currentWindow: true
@@ -45,7 +67,7 @@ $('#download').on('click', function () {
     chrome.tabs.sendMessage(tabs[0].id, {
       greeting: 'hello'
     }, function (response) {
-      let name = $('#name').val()
+      let name = nameElement.value
 
       if (historyValues.length === 0 ||
         (historyValues.length > 0 && historyValues[0] !== name)) {
