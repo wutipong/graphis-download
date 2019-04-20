@@ -1,7 +1,8 @@
 var historyValues = []
 var nameElement = document.getElementById('name')
+var categorySelect = document.getElementById('category')
 
-chrome.storage.local.get(['name', 'history'], function (data) {
+chrome.storage.local.get(['name', 'history', 'category'], function (data) {
   if (data.name != null) {
     nameElement.value = data.name
   }
@@ -10,6 +11,10 @@ chrome.storage.local.get(['name', 'history'], function (data) {
 
   if (historyValues == null) {
     historyValues = []
+  }
+
+  if (data.category != null) {
+    categorySelect.selectedIndex = data.category
   }
 
   updateHistory()
@@ -39,6 +44,14 @@ nameElement.addEventListener('change', function (event) {
   })
 })
 
+categorySelect.addEventListener('change', function (event) {
+  let category = categorySelect.selectedIndex
+
+  chrome.storage.local.set({
+    category: category
+  })
+})
+
 let clearButton = document.getElementById('clear')
 clearButton.addEventListener('click', function () {
   nameElement.value = ''
@@ -51,7 +64,18 @@ clearButton.addEventListener('click', function () {
 let historyListSelect = document.getElementById('history-list')
 historyListSelect.addEventListener('change', function () {
   let selectItem = historyListSelect.options[historyListSelect.selectedIndex]
-  nameElement.value = selectItem.text
+  let selectText = selectItem.text.split('\\')
+
+  if (selectText.length === 2) {
+    nameElement.value = selectText[1]
+    for (let i = 0; i < categorySelect.options.length; i++) {
+      if (categorySelect.options[i].text === selectText[0]) {
+        categorySelect.selectedIndex = i
+      }
+    }
+  } else {
+    nameElement.value = selectText[0]
+  }
 
   var event = document.createEvent('HTMLEvents')
   event.initEvent('change', true, false)
@@ -68,10 +92,11 @@ downloadButton.addEventListener('click', function () {
       greeting: 'hello'
     }, function (response) {
       let name = nameElement.value
+      let category = categorySelect[categorySelect.selectedIndex].text
 
       if (historyValues.length === 0 ||
         (historyValues.length > 0 && historyValues[0] !== name)) {
-        historyValues.unshift(name)
+        historyValues.unshift(category + '\\' + name)
 
         if (historyValues.length > 10) {
           historyValues.length = 10
@@ -87,7 +112,7 @@ downloadButton.addEventListener('click', function () {
       response.forEach(function (download) {
         chrome.downloads.download({
           url: download.url,
-          filename: name + '\\' + download.name,
+          filename: category + '\\' + name + '\\' + download.name,
           conflictAction: 'prompt'
         })
       })
