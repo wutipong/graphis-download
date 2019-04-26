@@ -77,7 +77,8 @@ clearButton.addEventListener('click', function () {
 })
 
 let historyListSelect = document.getElementById('history-list')
-historyListSelect.addEventListener('change', function () {
+let historySelect = document.getElementById('history-select')
+historySelect.addEventListener('click', function () {
   let selectItem = historyListSelect.options[historyListSelect.selectedIndex]
   let selectText = selectItem.text.split('\\')
 
