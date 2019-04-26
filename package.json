@@ -1,6 +1,6 @@
 {
   "name": "graphis-download",
-  "version": "2019.3.1",
+  "version": "2019.4.3",
   "description": "Helper tool for downloading images, model page, and movies, from Graphis website. Membership is still required.",
   "main": "background.js",
   "scripts": {

@@ -1,6 +1,6 @@
 {
     "name": "Graphis Download Helper",
-    "version": "2019.4.2",
+    "version": "2019.4.3",
     "description": "Helper tool for downloading images, model page, and movies, from Graphis website. Membership is still required.",
     "manifest_version": 2,
     "background": {
