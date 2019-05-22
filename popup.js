@@ -116,6 +116,7 @@ historySelect.addEventListener('click', function () {
   var event = document.createEvent('HTMLEvents')
   event.initEvent('change', true, false)
   nameElement.dispatchEvent(event)
+  categorySelect.dispatchEvent(event)
 })
 
 let downloadButton = document.getElementById('download')
