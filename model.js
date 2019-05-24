@@ -1,19 +1,25 @@
 chrome.runtime.onMessage.addListener(
   function (request, sender, sendResponse) {
-    let urls = []
+    let response = {
+      urls: []
+    }
 
     let modelBoxes = document.querySelectorAll('.model-box2 > img')
     if (modelBoxes.length > 0) {
-      urls.push({
+      response.urls.push({
         name: 'model.jpg',
         url: modelBoxes[0].getAttribute('src')
       })
     }
 
-    addUrlsFromGalleryBox('.photo-gallery-box', 'pic', urls)
-    addUrlsFromGalleryBox('.video-gallery-box', 'movs', urls)
+    addUrlsFromGalleryBox('.photo-gallery-box', 'pic', response.urls)
+    addUrlsFromGalleryBox('.video-gallery-box', 'movs', response.urls)
 
-    sendResponse(urls)
+    response.profile = getProfile()
+    response.comments = getComments()
+
+    console.log(response)
+    sendResponse(response)
   })
 
 function addUrlsFromGalleryBox (selector, name, array) {
@@ -38,4 +44,34 @@ function addUrlsFromGalleryBox (selector, name, array) {
       })
     }
   }
+}
+
+function getProfile () {
+  let profileItems = document.querySelectorAll('.model-prof > div > ul > li')
+  let profileMap = []
+  profileItems.forEach(function (node) {
+    let key = node.firstChild.textContent
+    let value = node.lastChild.textContent
+    profileMap[key] = value
+  })
+
+  let profile = {
+    age: profileMap['年齢 /age：'],
+    height: profileMap['身長 /height：'],
+    bwh: profileMap['スリーサイズ /BWH：'],
+    hobby: profileMap['趣味 /hobby：'],
+    numberOfShots: profileMap['登場回数 /Number of shots：']
+  }
+
+  return profile
+}
+
+function getComments () {
+  let commentUl = document.body.querySelector('.comment-box > div > ul')
+  let comments = {
+    jp: commentUl.querySelector('.text-jp').textContent.trim(),
+    en: commentUl.querySelector('.text-en').textContent.trim()
+  }
+
+  return comments
 }

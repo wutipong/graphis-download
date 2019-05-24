@@ -7,6 +7,7 @@
     "extends": "standard",
     "globals": {
         "Atomics": "readonly",
+        "Blob": "readonly",
         "SharedArrayBuffer": "readonly"
     },
     "parserOptions": {

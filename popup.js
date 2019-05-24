@@ -40,9 +40,7 @@ function updateHistory () {
   let historyListElement = document.getElementById('history-list')
   historyListElement.innerHTML = ''
 
-  historyValues.sort(function (a, b) {
-    return a.timestamp > b.timestamp
-  })
+  historyValues.sort((a, b) => a.timestamp < b.timestamp)
 
   if (historyValues.length > maxItemCount) {
     historyValues.length = maxItemCount
@@ -149,13 +147,45 @@ downloadButton.addEventListener('click', function () {
         history: historyValues
       })
 
-      response.forEach(function (download) {
-        chrome.downloads.download({
+      const downloadPath = (directoryText.value.length === 0 ? '' : (directoryText.value + '\\')) + category + '\\' + name
+      let downloadList = []
+
+      response.urls.forEach(function (download) {
+        downloadList.push({
           url: download.url,
-          filename: (directoryText.value.length === 0 ? '' : (directoryText.value + '\\')) + category + '\\' + name + '\\' + download.name
+          filename: downloadPath + '\\' + download.name
         })
       })
+
+      if (response.profile !== undefined || response.comments !== undefined) {
+        addInfo(downloadList, response, downloadPath)
+      }
+
+      downloadList.forEach(function (download) {
+        chrome.downloads.download({
+          url: download.url,
+          filename: download.filename
+        })
+      })
+
       window.close()
     })
   })
 })
+
+function addInfo (downloadList, response, downloadPath) {
+  const info = {
+    version: 1,
+    profile: response.profile,
+    comments: response.comments
+  }
+  const infoJson = JSON.stringify(info)
+  const bytes = new TextEncoder().encode(infoJson)
+  const blob = new Blob([bytes], { type: 'application/json;charset=utf-8' })
+  var url = URL.createObjectURL(blob)
+
+  downloadList.push({
+    url: url,
+    filename: downloadPath + '\\' + 'info.json'
+  })
+}

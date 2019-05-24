@@ -7,10 +7,13 @@ chrome.runtime.onMessage.addListener(
 
     let url = dlButton.getAttribute('href')
 
-    sendResponse([
-      {
-        name: url.substring(url.lastIndexOf('/') + 1),
-        url: url
-      }
-    ])
+    let response = {
+      urls: [
+        {
+          name: url.substring(url.lastIndexOf('/') + 1),
+          url: url
+        }
+      ]
+    }
+    sendResponse(response)
   })
